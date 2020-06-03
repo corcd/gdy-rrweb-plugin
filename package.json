@@ -1,0 +1,40 @@
+{
+  "name": "gdy-rrweb-plugin",
+  "version": "0.2.3",
+  "description": "gdy web record & replay plugin",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "src/index.js",
+  "repository": "https://github.com/corcd/gdy-rrweb-plugin.git",
+  "author": "王含泽 <whzcorcd@gmail.com>",
+  "license": "ISC",
+  "private": false,
+  "scripts": {
+    "build": "gulp build"
+  },
+  "keywords": [
+    "gdy",
+    "rrweb",
+    "frontend"
+  ],
+  "homepage": "https://github.com/corcd/gdy-rrweb-plugin",
+  "dependencies": {
+    "dayjs": "^1.8.28",
+    "object-hash": "^2.0.3",
+    "pako": "^1.0.11",
+    "rrweb": "^0.7.33",
+    "rrweb-player": "^0.4.6",
+    "terser": "^4.7.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.10.2",
+    "@babel/preset-env": "^7.10.2",
+    "babel-preset-stage-0": "^6.24.1",
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
+    "gulp-rename": "^2.0.0",
+    "gulp-strip-debug": "^3.0.0",
+    "gulp-terser": "^1.2.0"
+  }
+}
