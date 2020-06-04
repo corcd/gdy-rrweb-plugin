@@ -2,7 +2,7 @@
  * @Author: Whzcorcd
  * @Date: 2020-06-02 15:46:54
  * @LastEditors: Wzhcorcd
- * @LastEditTime: 2020-06-04 15:06:05
+ * @LastEditTime: 2020-06-04 19:08:57
  * @Description: file content
  */
 
@@ -27,8 +27,11 @@ export default class RRgdy {
     this.name = name
     this.url = url
     this.option = Object.assign({}, original, option)
-    this.session = Hash({ timestamp: timestamp })
+    this.startTime = 0
+    this.endTime = 0
+    this.session = ''
 
+    this.init = this.init.bind(this)
     this.record = this.record.bind(this)
     this.stop = this.stop.bind(this)
     this.setSession = this.setSession.bind(this)
@@ -36,6 +39,13 @@ export default class RRgdy {
     this.restore = this.restore.bind(this)
     this.export = this.export.bind(this)
     this.replay = this.replay.bind(this)
+
+    //
+    this.init()
+  }
+
+  init() {
+    this.setSession()
   }
 
   record() {
@@ -64,8 +74,10 @@ export default class RRgdy {
   }
 
   setSession() {
+    if (this.startTime) this.endTime = dayjs().unix()
     const timestamp = dayjs().format('{YYYY} MM-DDTHH:mm:ss')
     this.session = Hash({ timestamp: timestamp })
+    this.startTime = dayjs().unix()
   }
 
   minimize(source) {
@@ -81,6 +93,14 @@ export default class RRgdy {
   export(url) {
     console.log(this.events)
     const data = this.minimize(this.events)
+    const params = {
+      name: this.name,
+      uin: this.uin,
+      session: this.session,
+      data: data,
+      startTime: this.startTime,
+      endTime: this.endTime
+    }
     // 尝试使用 sendbeacon
     if (navigator.sendBeacon && data.length < 65536) {
       const status = navigator.sendBeacon(url, data)
