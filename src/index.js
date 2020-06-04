@@ -2,7 +2,7 @@
  * @Author: Whzcorcd
  * @Date: 2020-06-02 15:46:54
  * @LastEditors: Wzhcorcd
- * @LastEditTime: 2020-06-04 19:08:57
+ * @LastEditTime: 2020-06-04 19:23:21
  * @Description: file content
  */
 
@@ -102,13 +102,13 @@ export default class RRgdy {
       endTime: this.endTime
     }
     // 尝试使用 sendbeacon
-    if (navigator.sendBeacon && data.length < 65536) {
-      const status = navigator.sendBeacon(url, data)
+    if (navigator.sendBeacon && data.length < 65000) {
+      const status = navigator.sendBeacon(url, params)
       status && console.error(status)
       return
     }
     fetch(url, {
-      body: data,
+      body: params,
       cache: 'no-cache',
       headers: {
         'content-type': 'application/json'

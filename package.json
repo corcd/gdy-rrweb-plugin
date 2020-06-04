@@ -1,6 +1,6 @@
 {
   "name": "gdy-rrweb-plugin",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "gdy web record & replay plugin",
   "publishConfig": {
     "access": "public"
