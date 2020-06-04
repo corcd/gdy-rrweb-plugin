@@ -2,7 +2,7 @@
  * @Author: Whzcorcd
  * @Date: 2020-06-02 15:46:54
  * @LastEditors: Wzhcorcd
- * @LastEditTime: 2020-06-03 15:57:17
+ * @LastEditTime: 2020-06-04 15:06:05
  * @Description: file content
  */
 
@@ -21,12 +21,21 @@ export default class RRgdy {
       showDebug: false // 是否在回放过程中打印 debug 信息
     }
     const timestamp = dayjs().format('{YYYY} MM-DDTHH:mm:ss')
+
     this.events = []
     this.uin = uin
     this.name = name
     this.url = url
     this.option = Object.assign({}, original, option)
     this.session = Hash({ timestamp: timestamp })
+
+    this.record = this.record.bind(this)
+    this.stop = this.stop.bind(this)
+    this.setSession = this.setSession.bind(this)
+    this.minimize = this.minimize.bind(this)
+    this.restore = this.restore.bind(this)
+    this.export = this.export.bind(this)
+    this.replay = this.replay.bind(this)
   }
 
   record() {
@@ -50,9 +59,7 @@ export default class RRgdy {
 
   stop() {
     rrweb.record({
-      emit(event) {
-        // nothing
-      }
+      // nothing
     })
   }
 
