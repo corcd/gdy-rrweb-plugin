@@ -2,7 +2,7 @@
  * @Author: Whzcorcd
  * @Date: 2020-06-02 15:46:54
  * @LastEditors: Wzhcorcd
- * @LastEditTime: 2020-06-04 19:23:21
+ * @LastEditTime: 2020-06-05 11:26:11
  * @Description: file content
  */
 
@@ -40,7 +40,7 @@ export default class RRgdy {
     this.export = this.export.bind(this)
     this.replay = this.replay.bind(this)
 
-    //
+    // 初始化
     this.init()
   }
 
@@ -54,7 +54,6 @@ export default class RRgdy {
       emit(event, checkout) {
         if (checkout) {
           _this.export(_this.url)
-          _this.setSession()
         }
         const data = Object.assign({}, event, {
           uin: _this.uin,
@@ -74,10 +73,10 @@ export default class RRgdy {
   }
 
   setSession() {
-    if (this.startTime) this.endTime = dayjs().unix()
     const timestamp = dayjs().format('{YYYY} MM-DDTHH:mm:ss')
     this.session = Hash({ timestamp: timestamp })
     this.startTime = dayjs().unix()
+    this.events = []
   }
 
   minimize(source) {
@@ -91,7 +90,8 @@ export default class RRgdy {
   }
 
   export(url) {
-    console.log(this.events)
+    if (this.startTime) this.endTime = dayjs().unix()
+
     const data = this.minimize(this.events)
     const params = {
       name: this.name,
@@ -101,19 +101,27 @@ export default class RRgdy {
       startTime: this.startTime,
       endTime: this.endTime
     }
+
+    // 重置 session
+    this.setSession()
+
     // 尝试使用 sendbeacon
     if (navigator.sendBeacon && data.length < 65000) {
-      const status = navigator.sendBeacon(url, params)
+      const headers = {
+        type: 'application/json'
+      }
+      const blob = new Blob([JSON.stringify(params)], headers)
+      const status = navigator.sendBeacon(url, blob)
       status && console.error(status)
       return
     }
     fetch(url, {
-      body: params,
-      cache: 'no-cache',
-      headers: {
-        'content-type': 'application/json'
-      },
       method: 'POST',
+      body: JSON.stringify(params),
+      cache: 'no-cache',
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      }),
       mode: 'cors' // no-cors, cors, *same-origin
     })
       .then(response => {

@@ -1,13 +1,13 @@
 {
   "name": "gdy-rrweb-plugin",
-  "version": "0.2.6",
+  "version": "0.2.12",
   "description": "gdy web record & replay plugin",
   "publishConfig": {
     "access": "public"
   },
   "main": "src/index.js",
   "repository": "https://github.com/corcd/gdy-rrweb-plugin.git",
-  "author": "王含泽 <whzcorcd@gmail.com>",
+  "author": "Whzcorcd <whzcorcd@gmail.com>",
   "license": "ISC",
   "private": false,
   "scripts": {
