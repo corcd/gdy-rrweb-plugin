@@ -2,7 +2,9 @@
 
 An automated capture reporting tool based on the RRweb open-source project
 
-Matching server-side: [https://github.com/corcd/rrweb-server]()
+New matched server-side: [https://github.com/corcd/egg-rrweb-server]()
+
+Old matched server-side: [https://github.com/corcd/rrweb-server]()
 
 ## Install
 
