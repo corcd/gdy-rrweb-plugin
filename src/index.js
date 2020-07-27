@@ -2,7 +2,7 @@
  * @Author: Whzcorcd
  * @Date: 2020-06-02 15:46:54
  * @LastEditors: Wzhcorcd
- * @LastEditTime: 2020-06-05 11:26:11
+ * @LastEditTime: 2020-07-27 16:27:55
  * @Description: file content
  */
 
@@ -11,7 +11,7 @@ const dayjs = require('dayjs')
 const Hash = require('object-hash')
 
 export default class RRgdy {
-  constructor(uin = 0, name = 'example', url = '', option) {
+  constructor(uin = 0, project = 'example', url = '', option) {
     const original = {
       speed: 1, // 回放倍速
       root: document.body, // 回放时使用的 HTML 元素
@@ -24,7 +24,7 @@ export default class RRgdy {
 
     this.events = []
     this.uin = uin
-    this.name = name
+    this.project = project
     this.url = url
     this.option = Object.assign({}, original, option)
     this.startTime = 0
@@ -57,7 +57,7 @@ export default class RRgdy {
         }
         const data = Object.assign({}, event, {
           uin: _this.uin,
-          name: _this.name,
+          project: _this.project,
           session: _this.session
         })
         _this.events.push(data)
@@ -94,7 +94,7 @@ export default class RRgdy {
 
     const data = this.minimize(this.events)
     const params = {
-      name: this.name,
+      project: this.project,
       uin: this.uin,
       session: this.session,
       data: data,
